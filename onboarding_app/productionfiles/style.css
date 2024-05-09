@@ -1,0 +1,43 @@
+.nav_main {
+    text-decoration: none;
+    height: 100vh;
+    width:17rem;
+    float: left;
+    position: sticky;
+    padding: 2rem;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+.centerWrapper {
+    background-image: url("image.webp");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.login_form {
+    background-color: rgba(3, 219, 252, 0.5);
+    padding: 2rem;
+    border: .25rem solid;
+    border-radius: 1.5rem;
+
+}
+
+.button_submit {
+    width:10%;
+}
+
+.nav_list {
+    list-style-type: none;
+}
+

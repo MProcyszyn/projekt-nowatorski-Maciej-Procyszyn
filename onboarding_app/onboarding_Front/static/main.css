@@ -1,0 +1,67 @@
+:root{
+    /* Colors */
+    --clr-blue-900: #003366; /* Głęboki błękit oceanu - najciemniejszy */
+    --clr-blue-750: #0057b7; /* Głęboki błękit oceanu - jaśniejszy */
+    --clr-red-600: #B22222; /* Czerwień alarmu - ciemniejszy */
+    --clr-red-300: #FF0000; /* Czerwień alarmu - jasny */
+    --clr-green-500: #006400; /* Zieleń bezpieczeństwa - ciemny */
+    --clr-green-200: #00FF00; /* Zieleń bezpieczeństwa - jasny */
+    --clr-dark-500: #2C2C2C; /* Dodatkowy ciemny szary dla kontrastu */
+    --clr-grey-700: #4B4B4C; /* Szary statków - ciemny */
+    --clr-grey-400: #7D7D7D; /* Szary statków - średni */
+    --clr-white-100: #F0F0F0; /* Biel fal - bardzo jasny szary */
+    --clr-white-050: #FFFFFF; /* Biel fal - czysta biel */
+    /* Font family */
+    --ff-primary: "Quantico", sans-serif;
+
+    /* Font size */
+
+    --fs-700:2rem;
+    --fs-600:1.5rem;
+    --fs-550:1.25rem;
+    --fs-500:1rem;
+    --fs-400:0.875rem;
+    --fs-300:0.75rem;
+
+    /* Font weight */
+
+    --fw-400: 400;
+    --fw--700: 700;
+
+    /* Spaces */
+    --spacer-100: .25rem;
+    --spacer-200: .5rem;
+    --spacer-300: .75rem;
+    --spacer-400: 1rem;
+    --spacer-450: 1.125rem;
+    --spacer-500: 1.5rem;
+    --spacer-600: 2rem;
+    --spacer-650: 2.75rem;
+    --spacer-700: 3rem;
+    --spacer-750: 5rem;
+
+    /* Border radius */
+    --br: .5rem;
+}
+
+.g--100{gap:var(--spacer-100)}
+.g--200{gap:var(--spacer-200)}
+.g--300{gap:var(--spacer-300)}
+.g--400{gap:var(--spacer-400)}
+.g--450{gap:var(--spacer-450)}
+.g--500{gap:var(--spacer-500)}
+.g--600{gap:var(--spacer-600)}
+.g--650{gap:var(--spacer-650)}
+.g--700{gap:var(--spacer-700)}
+.g--750{gap:var(--spacer-750)}
+
+.p-h-100{padding-left:var(--spacer-100); padding-right:var(--spacer-100)}
+.p-h-200{padding-left:var(--spacer-200); padding-right:var(--spacer-200)}
+.p-h-300{padding-left:var(--spacer-300); padding-right:var(--spacer-300)}
+.p-h-400{padding-left:var(--spacer-400); padding-right:var(--spacer-400)}
+.p-h-450{padding-left:var(--spacer-450); padding-right:var(--spacer-450)}
+.p-h-500{padding-left:var(--spacer-500); padding-right:var(--spacer-500)}
+.p-h-600{padding-left:var(--spacer-600); padding-right:var(--spacer-600)}
+.p-h-650{padding-left:var(--spacer-650); padding-right:var(--spacer-650)}
+.p-h-700{padding-left:var(--spacer-700); padding-right:var(--spacer-700)}
+.p-h-750{padding-left:var(--spacer-750); padding-right:var(--spacer-750)}
