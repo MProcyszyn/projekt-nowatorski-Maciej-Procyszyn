@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from onboarding_API.models import Employee
+from onboarding_API.models import Employee, EmployeeGroup
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
@@ -13,6 +13,7 @@ class RegisterForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
+        group = forms.ModelChoiceField(queryset=EmployeeGroup.objects.all(), initial=EmployeeGroup.objects.get(name='Rookie'))
 
     class Meta:
         model = User
