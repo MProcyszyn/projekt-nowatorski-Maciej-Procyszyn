@@ -8,7 +8,7 @@ from crispy_forms.layout import Submit
 
 
 class RegisterForm(UserCreationForm):
-    email = forms.EmailField()
+    email = forms.EmailField(required=True)
 
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
@@ -26,6 +26,8 @@ class EmployeeForm(forms.ModelForm):
         ('MT', 'Maintenance'),
     ]
     employee_group = forms.ChoiceField(choices=EMPLOYEE_GROUP_CHOICES, label='Employee group', required=True)
+    experience = forms.CharField(required=True)
+    phone_nr = forms.CharField(required=True)
 
     def __init__(self, *args, **kwargs):
         super(EmployeeForm, self).__init__(*args, **kwargs)

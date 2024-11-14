@@ -8,8 +8,8 @@
     <form method="post" class="d-flex g-2 flex-column">
         <div class="login_form d-flex g-2 flex-column">
             {% csrf_token %}
-            {% crispy user_form %}
-            {% crispy employee_form %}
+            {{ user_form }}
+            {{ employee_form }}
             <p></p>
             <button type="submit" class="btn btn-primary">Sign Up</button>
         </div>
