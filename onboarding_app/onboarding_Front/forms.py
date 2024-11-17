@@ -21,19 +21,17 @@ class RegisterForm(UserCreationForm):
 
 
 class EmployeeForm(forms.ModelForm):
-    EMPLOYEE_GROUP_CHOICES = [
-        ('IT', 'IT'),
-        ('HR', 'Human Resources'),
-        ('MT', 'Maintenance'),
-    ]
-    employee_group = forms.ChoiceField(choices=EMPLOYEE_GROUP_CHOICES, label='Employee group', required=True)
+    employee_group = forms.ModelChoiceField(queryset=EmployeeGroup.objects.all(), label='Employee group', required=True)
     experience = forms.CharField(required=True)
     phone_nr = forms.CharField(required=True)
-
-    def __init__(self, *args, **kwargs):
-        super(EmployeeForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
 
     class Meta:
         model = Employee
         fields = ('employee_group', 'experience', 'phone_nr')
+
+    def __init__(self, *args, **kwargs):
+        super(EmployeeForm, self).__init__(*args, **kwargs)
+
+        self.fields['employee_group'].choices = [
+            (group.group_id, group.name) for group in EmployeeGroup.objects.all()
+        ]
