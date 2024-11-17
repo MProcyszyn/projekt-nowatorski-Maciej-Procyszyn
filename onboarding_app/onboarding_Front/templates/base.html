@@ -135,7 +135,8 @@
                 Work time
                 </a>
             </li>
-            {% if 'Team Leader' in user_groups %}
+
+            {% if employee.employee_group.group_id == 4 %}
             <li>
                 <a href="/add_employee" class="btn btn-primary d-flex g--200 align-items-center">
                     <i><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
