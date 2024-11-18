@@ -11,4 +11,5 @@ urlpatterns = [
     path('your_team', views.your_team_page, name='your_team'),
     path('work_time', views.work_time_page, name='work_time'),
     path('add_employee', views.add_employee_page, name='add_employee'),
+    path('session_security/', include('session_security.urls')),
 ]
