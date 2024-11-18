@@ -5,6 +5,7 @@
     float: left;
     position: sticky;
     padding: 2rem;
+    background-color:rgba(19, 172, 214);
 }
 
 
@@ -41,3 +42,9 @@ a {
     list-style-type: none;
 }
 
+.logged_dashboard {
+    background-color: rgba(24, 129, 158);
+    border: .15rem solid;
+    border-radius: 1.5rem;
+    padding:0.5rem;
+}

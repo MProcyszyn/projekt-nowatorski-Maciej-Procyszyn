@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from .forms import RegisterForm, EmployeeForm
 from onboarding_API.models import Employee, EmployeeGroup
+from django.contrib import messages
 
 # Create your views here.
 
@@ -19,6 +20,7 @@ def main_page(request):
 
 
 def logout_page(request):
+    messages.success(request, "You have been logged out successfully.")
     return render(request, "logout.html", {})
 
 
