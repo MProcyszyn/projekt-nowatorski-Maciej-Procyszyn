@@ -133,6 +133,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     "onboarding_app/productionfiles/session_security/style.css",
+    "onboarding_app/productionfiles/session_security/script.js",
 ]
 
 # Default primary key field type
@@ -144,11 +145,10 @@ LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
-SESSION_SECURITY_WARN_AFTER = 10
-SESSION_SECURITY_EXPIRE_AFTER = 20
+SESSION_SECURITY_WARN_AFTER = 60 * 25
+SESSION_SECURITY_EXPIRE_AFTER = 60 * 30
 SESSION_SECURITY_REDIRECT_URL = '/logout.html'
 SESSION_SECURITY_INSECURE = True
-
 
 STATIC_ROOT = BASE_DIR / 'productionfiles'
 
