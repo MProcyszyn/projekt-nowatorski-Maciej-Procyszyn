@@ -8,28 +8,9 @@ from django.contrib import messages
 # Create your views here.
 
 
-@login_required()
-def main_page(request):
-    employee = Employee.objects.get(user=request.user)
-    user_groups = request.user.groups.values_list('name', flat=True)
-    context = {
-        'employee': employee,
-        'user_groups': user_groups,
-    }
-    return render(request, "base.html",  context)
-
-
 def logout_page(request):
     messages.success(request, "You have been logged out successfully.")
     return render(request, "logout.html", {})
-
-
-def about_page(request):
-    user_groups = request.user.groups.values_list('name', flat=True)
-    context = {
-        'user_groups': user_groups,
-    }
-    return render(request, "about.html", context)
 
 
 def register_page(request):
@@ -58,6 +39,27 @@ def register_page(request):
     return render(request, "registration/registration.html", {'form': form})
 
 
+@login_required()
+def main_page(request):
+    employee = Employee.objects.get(user=request.user)
+    user_groups = request.user.groups.values_list('name', flat=True)
+    context = {
+        'employee': employee,
+        'user_groups': user_groups,
+    }
+    return render(request, "base.html",  context)
+
+
+@login_required()
+def about_page(request):
+    user_groups = request.user.groups.values_list('name', flat=True)
+    context = {
+        'user_groups': user_groups,
+    }
+    return render(request, "about.html", context)
+
+
+@login_required()
 def your_team_page(request):
     user_groups = request.user.groups.values_list('name', flat=True)
     record = Employee.objects.get(pk=1)
@@ -69,6 +71,7 @@ def your_team_page(request):
     return render(request, "your_team.html", context)
 
 
+@login_required()
 def work_time_page(request):
     user_groups = request.user.groups.values_list('name', flat=True)
     context = {
@@ -77,6 +80,7 @@ def work_time_page(request):
     return render(request, "work_time.html", context)
 
 
+@login_required()
 def add_employee_page(request):
     if request.method == 'POST':
         user_form = RegisterForm(request.POST)

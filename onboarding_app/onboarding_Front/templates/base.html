@@ -14,14 +14,12 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
 
     {% include 'session_security/all.html' %}
-    <script>
-        sessionSecurity.confirmFormDiscard = undefined;
-    </script>
+
 </head>
 <body>
 
 <script>
-
+    // removing eventListener from default events
     $(document).off("mousemove")
 
 </script>
