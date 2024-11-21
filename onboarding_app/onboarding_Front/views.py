@@ -52,8 +52,10 @@ def main_page(request):
 
 @login_required()
 def about_page(request):
+    employee = Employee.objects.get(user=request.user)
     user_groups = request.user.groups.values_list('name', flat=True)
     context = {
+        'employee': employee,
         'user_groups': user_groups,
     }
     return render(request, "about.html", context)
@@ -61,11 +63,12 @@ def about_page(request):
 
 @login_required()
 def your_team_page(request):
+    employee = Employee.objects.get(user=request.user)
+    employee.user.username = employee.user.username.capitalize()
     user_groups = request.user.groups.values_list('name', flat=True)
-    record = Employee.objects.get(pk=1)
     context = {
+        'employee': employee,
         'user_groups': user_groups,
-        'record': record,
     }
 
     return render(request, "your_team.html", context)
@@ -73,8 +76,10 @@ def your_team_page(request):
 
 @login_required()
 def work_time_page(request):
+    employee = Employee.objects.get(user=request.user)
     user_groups = request.user.groups.values_list('name', flat=True)
     context = {
+        'employee': employee,
         'user_groups': user_groups,
     }
     return render(request, "work_time.html", context)
@@ -82,6 +87,8 @@ def work_time_page(request):
 
 @login_required()
 def add_employee_page(request):
+    employee = Employee.objects.get(user=request.user)
+    user_groups = request.user.groups.values_list('name', flat=True)
     if request.method == 'POST':
         user_form = RegisterForm(request.POST)
         employee_form = EmployeeForm(request.POST)
@@ -98,4 +105,11 @@ def add_employee_page(request):
         user_form = RegisterForm()
         employee_form = EmployeeForm()
 
-    return render(request, 'add_employee.html', {'user_form': user_form, 'employee_form': employee_form})
+    context = {
+        'employee': employee,
+        'user_groups': user_groups,
+        'user_form': user_form,
+        'employee_form': employee_form,
+
+    }
+    return render(request, 'add_employee.html', context)

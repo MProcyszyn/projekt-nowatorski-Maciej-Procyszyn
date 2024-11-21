@@ -48,3 +48,7 @@ a {
     border-radius: 1.5rem;
     padding:0.5rem;
 }
+
+.capitalize-first::first-letter {
+    text-transform: uppercase;
+}
