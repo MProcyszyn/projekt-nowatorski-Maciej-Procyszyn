@@ -12,4 +12,7 @@ urlpatterns = [
     path('work_time', views.work_time_page, name='work_time'),
     path('add_employee', views.add_employee_page, name='add_employee'),
     path('session_security/', include('session_security.urls')),
+    path('assign_training', views.assign_training_page, name='assign_training'),
+    path('add_training', views.add_training_page, name='add_training'),
+
 ]

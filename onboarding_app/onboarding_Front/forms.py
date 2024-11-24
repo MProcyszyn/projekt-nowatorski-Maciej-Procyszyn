@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from onboarding_API.models import Employee, EmployeeGroup
+from onboarding_API.models import Employee, EmployeeGroup, Training, EmployeeTraining
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
@@ -35,3 +35,22 @@ class EmployeeForm(forms.ModelForm):
         self.fields['employee_group'].choices = [
             (group.group_id, group.name) for group in EmployeeGroup.objects.all()
         ]
+
+#   TODO---------------
+
+
+class TrainingForm(forms.ModelForm):
+    class Meta:
+        model = Training
+        fields = ['name', 'description', 'validity_period']
+
+
+class EmployeeTrainingForm(forms.ModelForm):
+    completion_date = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date'}),
+        label="Completion Date"
+    )
+
+    class Meta:
+        model = EmployeeTraining
+        fields = ['employee', 'training', 'completion_date', 'is_done']

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from .forms import RegisterForm, EmployeeForm
+from .forms import RegisterForm, EmployeeForm, TrainingForm, EmployeeTrainingForm
 from onboarding_API.models import Employee, EmployeeGroup
 from django.contrib import messages
 
@@ -113,3 +113,43 @@ def add_employee_page(request):
 
     }
     return render(request, 'add_employee.html', context)
+
+#   TODO---------------
+
+
+@login_required()
+def add_training_page(request):
+    employee = Employee.objects.get(user=request.user)
+    if request.method == 'POST':
+        form = TrainingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Training type has been successfully created.")
+            return redirect('/')
+    else:
+        form = TrainingForm()
+
+    context = {
+        'employee': employee,
+        'form': form,
+    }
+    return render(request, 'add_training.html', context)
+
+
+@login_required()
+def assign_training_page(request):
+    employee = Employee.objects.get(user=request.user)
+    if request.method == 'POST':
+        form = EmployeeTrainingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Training has been successfully assigned.")
+            return redirect('/')
+    else:
+        form = EmployeeTrainingForm()
+
+    context = {
+        'employee': employee,
+        'form': form,
+    }
+    return render(request, 'assign_training.html', context)
