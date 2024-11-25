@@ -13,7 +13,7 @@ class EmployeeGroup(models.Model):
 
 
 class Employee(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=1)
     experience = models.CharField(max_length=100, blank=True, null=True)
     phone_nr = models.CharField(max_length=15, blank=True, null=True)
     employee_group = models.ForeignKey(EmployeeGroup, on_delete=models.SET_NULL, null=True, blank=True)
