@@ -1,9 +1,36 @@
 {% extends "base.html" %}
 {% block form %}
-<h2>Assign Training</h2>
+
+<div class="centerWrapper_training">
+
     <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Assign Training</button>
+        <div class="login_form d-flex flex-column justify-content-center">
+            <h2>Assign Training</h2>
+            {% csrf_token %}
+            <div class="d-flex flex-column justify-content-center g--200 mt-3">
+
+                <div class="mb-3">
+                    <label for="id_employee" class="form-label">Employee:</label>
+                    {{ form.employee }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_training" class="form-label">Training:</label>
+                    {{ form.training }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_completion_date" class="form-label">Completion Date:</label>
+                    {{ form.completion_date }}
+                </div>
+
+                <div class="d-flex justify-content-center align-items-center mt-2">
+                    <label for="{{ form.is_done.id_for_label }}" class="me-2">Is done:</label>
+                    {{ form.is_done }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Assign Training</button>
+        </div>
     </form>
+</div>
 {% endblock %}

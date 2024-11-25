@@ -1,16 +1,42 @@
 {% extends "base.html" %}
-{% load static %}
-
 {% block form %}
-{% load crispy_forms_tags %}
+
 <div class="centerWrapper">
-    <h2>Register</h2>
-    <form method="post" class="d-flex g-2 flex-column">
-        <div class="login_form d-flex g-2 flex-column">
-            {% csrf_token %}
-            {{ user_form }}
-            {{ employee_form }}
-            <p></p>
+
+    <form method="post">
+        <div class="login_form d-flex flex-column justify-content-center">
+            <div class="d-flex flex-column  justify-content-center g--200 mt-3">
+                <h2>Register Employee</h2>
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username:</label>
+                    {{ user_form.username }}
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    {{ user_form.email }}
+                </div>
+                <div class="mb-3">
+                    <label for="password1" class="form-label">Password:</label>
+                    {{ user_form.password1 }}
+                </div>
+                <div class="mb-3">
+                    <label for="password2" class="form-label">Repeat Password:</label>
+                    {{ user_form.password2 }}
+                </div>
+                <div class="mb-3">
+                    <label for="employee_group" class="form-label">Employee group:</label>
+                    {{ employee_form.employee_group }}
+                </div>
+                <div class="mb-3">
+                    <label for="experience" class="form-label">Experience:</label>
+                    {{ employee_form.experience }}
+                </div>
+                <div class="mb-3">
+                    <label for="phone_nr" class="form-label">Phone nr:</label>
+                    {{ employee_form.phone_nr }}
+                </div>
+            </div>
             <button type="submit" class="btn btn-primary">Sign Up</button>
         </div>
     </form>

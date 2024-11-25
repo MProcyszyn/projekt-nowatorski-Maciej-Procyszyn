@@ -23,8 +23,6 @@ class Employee(models.Model):
         return self.user.username
 
 
-
-#   TODO---------------
 class Training(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
