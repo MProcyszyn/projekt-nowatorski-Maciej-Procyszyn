@@ -65,9 +65,6 @@ class EmployeeForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(EmployeeForm, self).__init__(*args, **kwargs)
-        self.fields['employee_group'].choices = [
-            (group.group_id, group.name) for group in EmployeeGroup.objects.all()
-        ]
 
     class Meta:
         model = Employee

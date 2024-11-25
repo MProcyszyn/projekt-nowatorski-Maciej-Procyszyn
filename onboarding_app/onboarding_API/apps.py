@@ -11,7 +11,7 @@ class OnboardingApiConfig(AppConfig):
 
     def create_groups(self, **kwargs):
         from .models import EmployeeGroup
-        groups = [('Rookie', 1), ('IT', 2), ('HR', 3), ('Team Leader', 4), ('Maintenance', 5)]
+        groups = ['Rookie', 'IT', 'HR', 'Team Leader', 'Maintenance']
         for group in groups:
-            EmployeeGroup.objects.get_or_create(name=group[0], group_id=group[1])
+            EmployeeGroup.objects.get_or_create(name=group)
 

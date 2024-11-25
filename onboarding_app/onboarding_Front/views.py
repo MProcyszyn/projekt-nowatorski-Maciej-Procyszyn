@@ -30,7 +30,7 @@ def register_page(request):
                         user=user,
                         experience="",
                         phone_nr="",
-                        employee_group=EmployeeGroup.objects.get(group_id=1)
+                        employee_group=EmployeeGroup.objects.get(id=1)
                     )
 
                     employee.save()

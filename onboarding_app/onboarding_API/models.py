@@ -6,7 +6,6 @@ from dateutil.relativedelta import relativedelta
 
 class EmployeeGroup(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    group_id = models.IntegerField(unique=True)
 
     def __str__(self):
         return self.name
@@ -46,3 +45,15 @@ class EmployeeTraining(models.Model):
 
     def __str__(self):
         return f"{self.employee} - {self.training}"
+
+
+class ProficiencyLevel(models.Model):
+    proficiency_level = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.proficiency_level
+
+
+class CompetenceMatrix(models.Model):
+    skill_description = models.TextField()
+    skill_level = models.ForeignKey(ProficiencyLevel, on_delete=models.SET_NULL, null=True)
