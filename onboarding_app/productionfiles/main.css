@@ -1,18 +1,4 @@
 :root{
-    /* Colors */
-    --clr-blue-900: #003366; /* Głęboki błękit oceanu - najciemniejszy */
-    --clr-blue-750: #0057b7; /* Głęboki błękit oceanu - jaśniejszy */
-    --clr-red-600: #B22222; /* Czerwień alarmu - ciemniejszy */
-    --clr-red-300: #FF0000; /* Czerwień alarmu - jasny */
-    --clr-green-500: #006400; /* Zieleń bezpieczeństwa - ciemny */
-    --clr-green-200: #00FF00; /* Zieleń bezpieczeństwa - jasny */
-    --clr-dark-500: #2C2C2C; /* Dodatkowy ciemny szary dla kontrastu */
-    --clr-grey-700: #4B4B4C; /* Szary statków - ciemny */
-    --clr-grey-400: #7D7D7D; /* Szary statków - średni */
-    --clr-white-100: #F0F0F0; /* Biel fal - bardzo jasny szary */
-    --clr-white-050: #FFFFFF; /* Biel fal - czysta biel */
-    /* Font family */
-    --ff-primary: "Quantico", sans-serif;
 
     /* Font size */
 
