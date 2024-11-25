@@ -55,5 +55,22 @@ class ProficiencyLevel(models.Model):
 
 
 class CompetenceMatrix(models.Model):
+    employee_group = models.ForeignKey(EmployeeGroup,
+                                       on_delete=models.CASCADE,
+                                       related_name="competence_matrices",
+                                       default=1
+                                       )
     skill_description = models.TextField()
+
+    def __str__(self):
+        return f"{self.skill_description} ({self.employee_group})"
+
+
+class EmployeeCompetence(models.Model):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name="competences")
+    matrix_entry = models.ForeignKey(CompetenceMatrix, on_delete=models.CASCADE, related_name="employee_competences")
     skill_level = models.ForeignKey(ProficiencyLevel, on_delete=models.SET_NULL, null=True)
+    assigned_date = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.employee} - {self.matrix_entry.skill_description}: {self.skill_level}"
