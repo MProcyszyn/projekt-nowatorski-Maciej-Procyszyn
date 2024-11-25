@@ -1,9 +1,31 @@
 {% extends "base.html" %}
 {% block form %}
-<h2>Create New Training</h2>
+<div class="centerWrapper_training">
+
     <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Create Training</button>
+        <div class="login_form d-flex flex-column justify-content-center">
+            <h2>Create New Training</h2>
+            {% csrf_token %}
+            <div class="d-flex flex-column justify-content-center g--200 mt-3">
+
+                <div class="mb-3">
+                    <label for="id_name" class="form-label">Name</label>
+                    {{ form.name }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_description" class="form-label">Description</label>
+                    {{ form.description }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_validity_period" class="form-label">Validity Period</label>
+                    {{ form.validity_period }}
+                </div>
+
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Create Training</button>
+        </div>
     </form>
+</div>
 {% endblock %}

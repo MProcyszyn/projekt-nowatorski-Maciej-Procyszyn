@@ -49,6 +49,19 @@ a {
     padding:0.5rem;
 }
 
-.capitalize-first span::first-letter {
+.capitalize-first::first-letter {
     text-transform: uppercase;
+}
+
+.centerWrapper_training {
+    background-image: url("training.webp");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
