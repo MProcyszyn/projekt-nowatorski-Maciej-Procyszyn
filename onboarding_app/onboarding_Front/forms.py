@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from onboarding_API.models import Employee, EmployeeGroup, Training, EmployeeTraining
+from onboarding_API.models import Employee, EmployeeGroup, Training, EmployeeTraining, EmployeeCompetence
 from crispy_forms.helper import FormHelper
 
 
@@ -120,3 +120,12 @@ class EmployeeTrainingForm(forms.ModelForm):
     class Meta:
         model = EmployeeTraining
         fields = ['employee', 'training', 'completion_date', 'is_done']
+
+
+class EmployeeCompetenceForm(forms.ModelForm):
+    class Meta:
+        model = EmployeeCompetence
+        fields = ['skill_level']
+        widgets = {
+            'skill_level': forms.Select(attrs={'class': 'form-control'}),
+        }

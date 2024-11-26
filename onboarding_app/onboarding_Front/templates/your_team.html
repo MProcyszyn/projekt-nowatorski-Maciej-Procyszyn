@@ -1,71 +1,41 @@
 {% extends "base.html" %}
 {% block form %}
 
-
 <div>
-    <div>
-    <h1>Employee Info</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Attribute</th>
-                <th>Value</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><strong>Name</strong></td>
-                <td>{{ employee.user.username }}</td>
-            </tr>
-            <tr>
-                <td><strong>Email</strong></td>
-                <td>{{ employee.user.email }}</td>
-            </tr>
-            <tr>
-                <td><strong>Experience</strong></td>
-                <td>{{ employee.experience }}</td>
-            </tr>
-            <tr>
-                <td><strong>Phone Number</strong></td>
-                <td>{{ employee.phone_nr }}</td>
-            </tr>
-            <tr>
-                <td><strong>Group Name</strong></td>
-                <td>{{ employee.employee_group }}</td>
-            </tr>
-            <tr>
-                <td><strong>Hire Date</strong></td>
-                <td>{{ employee.hire_date }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <h1>Team Managed by {{ user.username }}</h1>
+
+    {% if employees %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Experience</th>
+                    <th>Phone Number</th>
+                    <th>Group</th>
+                    <th>Hire Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in employees %}
+                <tr>
+                    <td>
+                        <a href="{% url 'employee_detail' employee.id %}">
+                            {{ employee.user.username }}
+                        </a>
+                    </td>
+                    <td>{{ employee.user.email }}</td>
+                    <td>{{ employee.experience }}</td>
+                    <td>{{ employee.phone_nr }}</td>
+                    <td>{{ employee.employee_group.name }}</td>
+                    <td>{{ employee.hire_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No employees found under your management.</p>
+    {% endif %}
 </div>
-    <div>
-        <h2>Completed Trainings</h2>
-        {% if employee.trainings.exists %}
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Training Name</th>
-                        <th>Description</th>
-                        <th>Completion Date</th>
-                        <th>Expiration Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for training in employee.trainings.all %}
-                        <tr>
-                            <td>{{ training.training.name }}</td>
-                            <td>{{ training.training.description }}</td>
-                            <td>{{ training.completion_date }}</td>
-                            <td>{{ training.expiration_date }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <p>No completed trainings available.</p>
-        {% endif %}
-    </div>
-</div>
+
 {% endblock %}

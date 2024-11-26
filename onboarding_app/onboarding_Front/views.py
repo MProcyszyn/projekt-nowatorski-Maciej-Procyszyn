@@ -1,11 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from .forms import RegisterForm, EmployeeForm, TrainingForm, EmployeeTrainingForm
-from onboarding_API.models import Employee, EmployeeGroup
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.views import LoginView
-from .forms import CustomLoginForm
+from .forms import RegisterForm, EmployeeForm, TrainingForm, EmployeeTrainingForm, CustomLoginForm, EmployeeCompetenceForm
+from onboarding_API.models import Employee, EmployeeGroup, EmployeeCompetence, EmployeeTraining
 
 
 class CustomLoginView(LoginView):
@@ -55,28 +56,59 @@ def main_page(request):
     return render(request, "base.html",  context)
 
 
-@login_required()
+@login_required
 def about_page(request):
+    # Pobierz aktualnie zalogowanego pracownika
     employee = Employee.objects.get(user=request.user)
-    user_groups = request.user.groups.values_list('name', flat=True)
+
+    # Pobierz szkolenia przypisane do pracownika
+    trainings = employee.trainings.all()
+
+    # Pobierz kompetencje przypisane do pracownika
+    competences = employee.competences.all()
+
     context = {
         'employee': employee,
-        'user_groups': user_groups,
+        'trainings': trainings,
+        'competences': competences,
     }
     return render(request, "about.html", context)
 
 
-@login_required()
+
+@login_required
 def your_team_page(request):
     employee = Employee.objects.get(user=request.user)
-    employee.user.username = employee.user.username.capitalize()
-    user_groups = request.user.groups.values_list('name', flat=True)
+    # Pobierz aktualnie zalogowanego użytkownika
+    user = request.user
+
+    # Pobierz pracowników zatrudnionych przez aktualnego użytkownika
+    employees = Employee.objects.filter(created_by=user)
+
     context = {
         'employee': employee,
-        'user_groups': user_groups,
+        'employees': employees,
+        'user': user,
     }
 
     return render(request, "your_team.html", context)
+
+
+@login_required
+def employee_detail_page(request, employee_id):
+    employee = Employee.objects.get(user=request.user)
+    employee_obj = get_object_or_404(Employee, id=employee_id)
+    trainings = EmployeeTraining.objects.filter(employee=employee_obj)
+    competences = EmployeeCompetence.objects.filter(employee=employee_obj)
+
+    context = {
+        'employee': employee,
+        'employee_obj': employee_obj,
+        'trainings': trainings,
+        'competences': competences,
+    }
+
+    return render(request, 'employee_detail.html', context)
 
 
 @login_required()
@@ -106,6 +138,7 @@ def add_employee_page(request):
 
                     employee = employee_form.save(commit=False)
                     employee.user = user
+                    employee.created_by = request.user
                     employee.save()
 
                 return redirect('/')
@@ -160,3 +193,58 @@ def assign_training_page(request):
         'form': form,
     }
     return render(request, 'assign_training.html', context)
+
+
+@login_required
+def employee_competences_page(request, employee_id):
+    employee = Employee.objects.get(user=request.user)
+    employee_obj = get_object_or_404(Employee, id=employee_id)
+    competences = EmployeeCompetence.objects.filter(employee=employee_obj)
+    context = {
+        'employee': employee,
+        'employee_obj': employee_obj,
+        'competences': competences,
+    }
+    return render(request, 'employee_competences.html', context)
+
+
+@login_required
+def edit_competence_page(request, competence_id):
+    employee = Employee.objects.get(user=request.user)
+    competence = get_object_or_404(EmployeeCompetence, id=competence_id)
+
+    if request.method == 'POST':
+        form = EmployeeCompetenceForm(request.POST, instance=competence)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('employee_competences', args=[competence.employee.id]))
+    else:
+        form = EmployeeCompetenceForm(instance=competence)
+
+    context = {
+        'employee': employee,
+        'form': form,
+        'competence': competence,
+    }
+    return render(request, 'edit_competence.html', context)
+
+
+@login_required
+def edit_training_page(request, training_id):
+    employee = Employee.objects.get(user=request.user)
+    training = get_object_or_404(EmployeeTraining, id=training_id)
+
+    if request.method == 'POST':
+        form = EmployeeTrainingForm(request.POST, instance=training)
+        if form.is_valid():
+            form.save()
+            return redirect('employee_detail', employee_id=training.employee.id)
+    else:
+        form = EmployeeTrainingForm(instance=training)
+
+    context = {
+        'employee': employee,
+        'form': form,
+        'training': training,
+    }
+    return render(request, 'edit_training.html', context)
