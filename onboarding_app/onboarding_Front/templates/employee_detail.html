@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block form %}
+
+<div>
+    <h1>Details for {{ employee_obj.user.username }}</h1>
+
+    <h2>Employee Info</h2>
+    <table class="table">
+        <tr>
+            <td><strong>Email</strong></td>
+            <td>{{ employee_obj.user.email }}</td>
+        </tr>
+        <tr>
+            <td><strong>Experience</strong></td>
+            <td>{{ employee_obj.experience }}</td>
+        </tr>
+        <tr>
+            <td><strong>Phone Number</strong></td>
+            <td>{{ employee_obj.phone_nr }}</td>
+        </tr>
+        <tr>
+            <td><strong>Group</strong></td>
+            <td>{{ employee_obj.employee_group.name }}</td>
+        </tr>
+        <tr>
+            <td><strong>Hire Date</strong></td>
+            <td>{{ employee_obj.hire_date }}</td>
+        </tr>
+    </table>
+
+    <h2>Trainings</h2>
+{% if trainings %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Training Name</th>
+                <th>Description</th>
+                <th>Completion Date</th>
+                <th>Expiration Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for training in trainings %}
+            <tr>
+                <td>{{ training.training.name }}</td>
+                <td>{{ training.training.description }}</td>
+                <td>{{ training.completion_date }}</td>
+                <td>{{ training.expiration_date }}</td>
+                <td>
+                    <a href="{% url 'edit_training' training.id %}" class="btn btn-warning btn-sm">Edit</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No trainings available.</p>
+{% endif %}
+
+
+    <h2>Competences</h2>
+{% if competences %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Skill</th>
+                <th>Proficiency Level</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for competence in competences %}
+            <tr>
+                <td>{{ competence.matrix_entry.skill_description }}</td>
+                <td>{{ competence.skill_level.proficiency_level }}</td>
+                <td>
+                    <a href="{% url 'edit_competence' competence.id %}" class="btn btn-warning btn-sm">Edit</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No competences available.</p>
+{% endif %}
+
+</div>
+
+{% endblock %}

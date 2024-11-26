@@ -17,5 +17,9 @@ urlpatterns = [
     path('session_security/', include('session_security.urls')),
     path('assign_training', views.assign_training_page, name='assign_training'),
     path('add_training', views.add_training_page, name='add_training'),
+    path('employee/<int:employee_id>/competences/', views.employee_competences_page, name='employee_competences'),
+    path('competence/<int:competence_id>/edit/', views.edit_competence_page, name='edit_competence'),
+    path('employee/<int:employee_id>/', views.employee_detail_page, name='employee_detail'),
+    path('training/<int:training_id>/edit/', views.edit_training_page, name='edit_training'),
 
 ]
