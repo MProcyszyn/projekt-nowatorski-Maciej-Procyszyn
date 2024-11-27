@@ -28,9 +28,18 @@
                     <label for="{{ form.is_done.id_for_label }}" class="me-2">Is done:</label>
                     {{ form.is_done }}
                 </div>
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
             </div>
+
             <button type="submit" class="btn btn-primary mt-3">Assign Training</button>
+
         </div>
+
     </form>
+
 </div>
 {% endblock %}

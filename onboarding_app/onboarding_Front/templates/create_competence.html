@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block form %}
+
+<div class="centerWrapper">
+    <form method="post">
+        <div class="login_form d-flex flex-column justify-content-center">
+            <h2>Create New Competence</h2>
+            {% csrf_token %}
+            <div class="d-flex flex-column justify-content-center g--200 mt-3">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Create Competence</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

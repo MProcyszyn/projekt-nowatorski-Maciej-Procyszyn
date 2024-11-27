@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from datetime import datetime, timedelta, date
 from dateutil.relativedelta import relativedelta
 
@@ -48,6 +49,7 @@ class EmployeeTraining(models.Model):
     is_done = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
+
         if self.completion_date and self.training.validity_period:
             self.expiration_date = self.completion_date + relativedelta(months=self.training.validity_period)
         super().save(*args, **kwargs)
