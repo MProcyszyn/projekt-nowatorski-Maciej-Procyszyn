@@ -1,41 +1,45 @@
 {% extends "base.html" %}
 {% block form %}
+<div class="container mt-4">
+    <div>
+        <h1>Team Managed by {{ user.username }}</h1>
 
-<div>
-    <h1>Team Managed by {{ user.username }}</h1>
-
-    {% if employees %}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Experience</th>
-                    <th>Phone Number</th>
-                    <th>Group</th>
-                    <th>Hire Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for employee in employees %}
-                <tr>
-                    <td>
-                        <a href="{% url 'employee_detail' employee.id %}">
-                            {{ employee.user.username }}
-                        </a>
-                    </td>
-                    <td>{{ employee.user.email }}</td>
-                    <td>{{ employee.experience }}</td>
-                    <td>{{ employee.phone_nr }}</td>
-                    <td>{{ employee.employee_group.name }}</td>
-                    <td>{{ employee.hire_date }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>No employees found under your management.</p>
-    {% endif %}
+        {% if employees %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Experience</th>
+                        <th>Phone Number</th>
+                        <th>Group</th>
+                        <th>Hire Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for employee in employees %}
+                    <tr>
+                        <td>{{ employee.user.username }}</td>
+                        <td>{{ employee.user.email }}</td>
+                        <td>{{ employee.experience }}</td>
+                        <td>{{ employee.phone_nr }}</td>
+                        <td>{{ employee.employee_group.name }}</td>
+                        <td>{{ employee.hire_date }}</td>
+                        <td>
+                            <form action="{% url 'employee_detail' employee.id %}" method="get" style="display: inline;">
+                                <button type="submit" class="btn btn-primary">
+                                    View Details
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No employees found under your management.</p>
+        {% endif %}
+    </div>
 </div>
-
 {% endblock %}

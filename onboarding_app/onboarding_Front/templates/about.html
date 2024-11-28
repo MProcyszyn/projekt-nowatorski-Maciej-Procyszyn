@@ -1,83 +1,83 @@
 {% extends "base.html" %}
 {% block form %}
-
-<div>
-    <h1>About You</h1>
-    <h2>Personal Information</h2>
-    <table class="table">
-        <tr>
-            <td><strong>Username</strong></td>
-            <td>{{ employee.user.username }}</td>
-        </tr>
-        <tr>
-            <td><strong>Email</strong></td>
-            <td>{{ employee.user.email }}</td>
-        </tr>
-        <tr>
-            <td><strong>Experience</strong></td>
-            <td>{{ employee.experience }}</td>
-        </tr>
-        <tr>
-            <td><strong>Phone Number</strong></td>
-            <td>{{ employee.phone_nr }}</td>
-        </tr>
-        <tr>
-            <td><strong>Group</strong></td>
-            <td>{{ employee.employee_group.name }}</td>
-        </tr>
-        <tr>
-            <td><strong>Hire Date</strong></td>
-            <td>{{ employee.hire_date }}</td>
-        </tr>
-    </table>
-
-    <h2>Trainings</h2>
-    {% if trainings %}
+<div class="container mt-4">
+    <div>
+        <h1>About You</h1>
+        <h2>Personal Information</h2>
         <table class="table">
-            <thead>
-                <tr>
-                    <th>Training Name</th>
-                    <th>Description</th>
-                    <th>Completion Date</th>
-                    <th>Expiration Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for training in trainings %}
-                <tr>
-                    <td>{{ training.training.name }}</td>
-                    <td>{{ training.training.description }}</td>
-                    <td>{{ training.completion_date }}</td>
-                    <td>{{ training.expiration_date }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
+            <tr>
+                <td><strong>Username</strong></td>
+                <td>{{ employee.user.username }}</td>
+            </tr>
+            <tr>
+                <td><strong>Email</strong></td>
+                <td>{{ employee.user.email }}</td>
+            </tr>
+            <tr>
+                <td><strong>Experience</strong></td>
+                <td>{{ employee.experience }}</td>
+            </tr>
+            <tr>
+                <td><strong>Phone Number</strong></td>
+                <td>{{ employee.phone_nr }}</td>
+            </tr>
+            <tr>
+                <td><strong>Group</strong></td>
+                <td>{{ employee.employee_group.name }}</td>
+            </tr>
+            <tr>
+                <td><strong>Hire Date</strong></td>
+                <td>{{ employee.hire_date }}</td>
+            </tr>
         </table>
-    {% else %}
-        <p>No trainings available.</p>
-    {% endif %}
 
-    <h2>Competences</h2>
-    {% if competences %}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Skill</th>
-                    <th>Proficiency Level</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for competence in competences %}
-                <tr>
-                    <td>{{ competence.matrix_entry.skill_description }}</td>
-                    <td>{{ competence.skill_level.proficiency_level }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>No competences available.</p>
-    {% endif %}
+        <h2>Trainings</h2>
+        {% if trainings %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Training Name</th>
+                        <th>Description</th>
+                        <th>Completion Date</th>
+                        <th>Expiration Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for training in trainings %}
+                    <tr>
+                        <td>{{ training.training.name }}</td>
+                        <td>{{ training.training.description }}</td>
+                        <td>{{ training.completion_date }}</td>
+                        <td>{{ training.expiration_date }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No trainings available.</p>
+        {% endif %}
+
+        <h2>Competences</h2>
+        {% if competences %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Skill</th>
+                        <th>Proficiency Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for competence in competences %}
+                    <tr>
+                        <td>{{ competence.matrix_entry.skill_description }}</td>
+                        <td>{{ competence.skill_level.proficiency_level }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No competences available.</p>
+        {% endif %}
+    </div>
 </div>
-
 {% endblock %}

@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from onboarding_API.models import Employee, EmployeeGroup, Training, EmployeeTraining, EmployeeCompetence
+from django.core.exceptions import ValidationError
+from onboarding_API.models import Employee, EmployeeGroup, Training, EmployeeTraining, EmployeeCompetence, CompetenceMatrix
 from crispy_forms.helper import FormHelper
 
 
@@ -95,6 +96,10 @@ class TrainingForm(forms.ModelForm):
 
 
 class EmployeeTrainingForm(forms.ModelForm):
+    class Meta:
+        model = EmployeeTraining
+        fields = ['employee', 'training', 'completion_date', 'is_done']
+
     completion_date = forms.DateField(
         widget=forms.DateInput(attrs={
             'class': 'form-control',
@@ -117,15 +122,29 @@ class EmployeeTrainingForm(forms.ModelForm):
             'class': 'form-check-input',
         })
 
-    class Meta:
-        model = EmployeeTraining
-        fields = ['employee', 'training', 'completion_date', 'is_done']
+    def clean(self):
+        cleaned_data = super().clean()
+        employee = cleaned_data.get('employee')
+        training = cleaned_data.get('training')
+        if EmployeeTraining.objects.filter(employee=employee, training=training).exists():
+            raise ValidationError("This training has already been assigned to this employee.")
+        return cleaned_data
 
 
-class EmployeeCompetenceForm(forms.ModelForm):
+class EmployeeCompetenceLevelForm(forms.ModelForm):
     class Meta:
         model = EmployeeCompetence
         fields = ['skill_level']
         widgets = {
             'skill_level': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+
+class CompetenceMatrixForm(forms.ModelForm):
+    class Meta:
+        model = CompetenceMatrix
+        fields = ['employee_group', 'skill_description']
+        widgets = {
+            'employee_group': forms.Select(attrs={'class': 'form-control'}),
+            'skill_description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }

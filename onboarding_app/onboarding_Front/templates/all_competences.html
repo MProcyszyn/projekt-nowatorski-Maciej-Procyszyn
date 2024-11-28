@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block form %}
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-center align-items-center g--500">
+        <h1>All Competences</h1>
+            <a href="{% url 'create_competence' %}" class="btn btn-primary align-items-center">Create New Competence</a>
+        </div>
+    {% for group, competences in grouped_competences.items %}
+    <div class="mt-5">
+        <h2>{{ group.name }}</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Skill Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for competence in competences %}
+                <tr>
+                    <td>{{ competence.skill_description }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
