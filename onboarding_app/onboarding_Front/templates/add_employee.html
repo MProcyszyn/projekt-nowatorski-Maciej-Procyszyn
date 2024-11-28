@@ -5,39 +5,74 @@
 
     <form method="post">
         <div class="login_form d-flex flex-column justify-content-center">
-            <div class="d-flex flex-column  justify-content-center g--200 mt-3">
+            <div class="d-flex flex-column justify-content-center g--200 mt-3">
                 <h2>Register Employee</h2>
                 {% csrf_token %}
                 <div class="mb-3">
                     <label for="username" class="form-label">Username:</label>
                     {{ user_form.username }}
+                    {% if user_form.username.errors %}
+                        <div class="text-danger">
+                            {{ user_form.username.errors|striptags }}
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email:</label>
                     {{ user_form.email }}
+                    {% if user_form.email.errors %}
+                        <div class="text-danger">
+                            {{ user_form.email.errors|striptags }}
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="mb-3">
                     <label for="password1" class="form-label">Password:</label>
                     {{ user_form.password1 }}
+                    {% if user_form.password1.errors %}
+                        <div class="text-danger">
+                            {{ user_form.password1.errors|striptags }}
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="mb-3">
                     <label for="password2" class="form-label">Repeat Password:</label>
                     {{ user_form.password2 }}
+                    {% if user_form.password2.errors %}
+                        <div class="text-danger">
+                            {{ user_form.password2.errors|striptags }}
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="mb-3">
-                    <label for="employee_group" class="form-label">Employee group:</label>
+                    <label for="employee_group" class="form-label">Employee Group:</label>
                     {{ employee_form.employee_group }}
+                    {% if employee_form.employee_group.errors %}
+                        <div class="text-danger">
+                            {{ employee_form.employee_group.errors|striptags }}
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="mb-3">
                     <label for="experience" class="form-label">Experience:</label>
                     {{ employee_form.experience }}
+                    {% if employee_form.experience.errors %}
+                        <div class="text-danger">
+                            {{ employee_form.experience.errors|striptags }}
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="mb-3">
-                    <label for="phone_nr" class="form-label">Phone nr:</label>
+                    <label for="phone_nr" class="form-label">Phone Number:</label>
                     {{ employee_form.phone_nr }}
+                    {% if employee_form.phone_nr.errors %}
+                        <div class="text-danger">
+                            {{ employee_form.phone_nr.errors|striptags }}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Sign Up</button>
+            <button type="submit" class="btn btn-primary">Register Employee</button>
         </div>
     </form>
 </div>

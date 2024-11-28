@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block form %}
+<div class="container mt-4">
+    <h1>Edit Employee: {{ employee.user.username }}</h1>
+    <form method="post" class="form">
+    {% csrf_token %}
+    <div class="form-group mb-3">
+        <label for="username" class="form-label">Username:</label>
+        {{ user_form.username }}
+    </div>
+    <div class="form-group mb-3">
+        <label for="email" class="form-label">Email:</label>
+        {{ user_form.email }}
+    </div>
+    <div class="form-group mb-3">
+        <label for="employee_group" class="form-label">Employee Group:</label>
+        {{ employee_form.employee_group }}
+    </div>
+    <div class="form-group mb-3">
+        <label for="experience" class="form-label">Experience:</label>
+        {{ employee_form.experience }}
+    </div>
+    <div class="form-group mb-3">
+        <label for="phone_nr" class="form-label">Phone Number:</label>
+        {{ employee_form.phone_nr }}
+    </div>
+    <div class="form-group mb-3">
+        <label for="hire_date" class="form-label">Hire Date:</label>
+        {{ employee_form.hire_date }}
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+
+</div>
+{% endblock %}

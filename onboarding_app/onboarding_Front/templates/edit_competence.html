@@ -1,12 +1,19 @@
 {% extends "base.html" %}
 {% block form %}
-<div>
+<div class="container mt-4">
     <h1>Edit Competence</h1>
-    <form method="POST">
+    <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Save</button>
-        <a href="{% url 'employee_detail' competence.employee.id %}" class="btn btn-secondary">Cancel</a>
+        <div class="mb-3">
+            <label for="skill_description" class="form-label">Skill Description:</label>
+            {{ form.skill_description }}
+        </div>
+        <div class="mb-3">
+            <label for="employee_group" class="form-label">Employee Group:</label>
+            {{ form.employee_group }}
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a href="{% url 'all_competences' %}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 {% endblock %}
