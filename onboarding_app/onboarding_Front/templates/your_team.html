@@ -19,7 +19,7 @@
                 </thead>
                 <tbody>
                     {% for employee in employees %}
-                    <tr>
+                    <tr id="employee-{{ employee.id }}" {% if employee.id == highlight_employee_id %} class="highlight" {% endif %}>
                         <td>{{ employee.user.username }}</td>
                         <td>{{ employee.user.email }}</td>
                         <td>{{ employee.experience }}</td>
@@ -32,6 +32,12 @@
                                     View Details
                                 </button>
                             </form>
+                            <form action="{% url 'delete_employee' employee.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete {{ employee.user.username }} and all related records?');">
+                                    Delete
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     {% endfor %}
@@ -42,4 +48,21 @@
         {% endif %}
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const highlightRow = document.querySelector('table tr.highlight');
+        if (highlightRow) {
+            highlightRow.style.backgroundColor = 'yellow';
+            setTimeout(() => {
+                highlightRow.style.backgroundColor = '';
+                highlightRow.classList.remove('highlight');
+            }, 5000);
+
+            highlightRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        }
+    });
+</script>
+
 {% endblock %}

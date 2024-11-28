@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block form %}
 <div class="container mt-4">
-    <h1>Edit Training</h1>
+    <h1>Edit Training for {{ employee_training.employee.user.username }}</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="btn btn-success">Save Changes</button>
-        <a href="{% url 'all_trainings' %}" class="btn btn-secondary">Cancel</a>
+        <a href="{% url 'employee_detail' employee_training.employee.id %}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 {% endblock %}

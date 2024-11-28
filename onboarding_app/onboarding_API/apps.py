@@ -7,11 +7,12 @@ class OnboardingApiConfig(AppConfig):
     name = 'onboarding_API'
 
     def ready(self):
+        import onboarding_API.signals
         post_migrate.connect(self.create_groups)
 
     def create_groups(self, **kwargs):
+
         from .models import EmployeeGroup
         groups = ['Rookie', 'IT', 'HR', 'Team Leader', 'Maintenance']
         for group in groups:
             EmployeeGroup.objects.get_or_create(name=group)
-

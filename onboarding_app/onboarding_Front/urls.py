@@ -21,5 +21,13 @@ urlpatterns = [
     path('employee/<int:employee_id>/', views.employee_detail_page, name='employee_detail'),
     path('training/<int:training_id>/edit/', views.edit_training_page, name='edit_training'),
     path('create_competence/', views.create_competence_view, name='create_competence'),
+    path('all_trainings/', views.all_trainings_page, name='all_trainings'),
+    path('employee_training/<int:training_id>/edit/', views.edit_employee_training, name='edit_employee_training'),
+    path('training/<int:training_id>/delete/', views.delete_training, name='delete_training'),
+    path('competence/<int:competence_id>/delete/', views.delete_competence, name='delete_competence'),
+    path('competence/<int:competence_id>/edit_proficiency_level/', views.edit_employee_proficiency_level, name='edit_employee_proficiency_level'),
+    path('employee_training/<int:training_id>/delete/', views.delete_employee_training, name='delete_employee_training'),
+    path('employee/<int:employee_id>/delete/', views.delete_employee_page, name='delete_employee'),
+    path('employee/<int:employee_id>/edit/', views.edit_employee_page, name='edit_employee'),
 
 ]

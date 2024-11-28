@@ -2,8 +2,10 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from onboarding_API.models import Employee, EmployeeGroup, Training, EmployeeTraining, EmployeeCompetence, CompetenceMatrix
+from django.forms import DateInput
+from onboarding_API.models import Employee, EmployeeGroup, Training, EmployeeTraining, EmployeeCompetence, CompetenceMatrix, ProficiencyLevel
 from crispy_forms.helper import FormHelper
+import re
 
 
 class CustomLoginForm(AuthenticationForm):
@@ -51,14 +53,18 @@ class RegisterForm(UserCreationForm):
 class EmployeeForm(forms.ModelForm):
     employee_group = forms.ModelChoiceField(
         queryset=EmployeeGroup.objects.all(),
-        label='Employee group',
+        initial=lambda: EmployeeGroup.objects.filter(name='Rookie').first(),
         required=True,
         widget=forms.Select(attrs={'class': 'form-select'})
     )
-    experience = forms.CharField(
+
+    experience = forms.ModelChoiceField(
+        queryset=ProficiencyLevel.objects.all(),
+        initial=lambda: ProficiencyLevel.objects.filter(proficiency_level='Shadow').first(),
         required=True,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your experience'})
+        widget=forms.Select(attrs={'class': 'form-select'})
     )
+
     phone_nr = forms.CharField(
         required=True,
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your phone number'})
@@ -67,9 +73,31 @@ class EmployeeForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(EmployeeForm, self).__init__(*args, **kwargs)
 
+        self.fields['employee_group'].choices = [
+            (group.id, group.name) for group in EmployeeGroup.objects.all()
+        ]
+
+        self.fields['experience'].choices = [
+            (level.id, level.proficiency_level) for level in ProficiencyLevel.objects.all()
+        ]
+
+        self.fields['hire_date'].widget = DateInput(
+            attrs={
+                'class': 'form-control',
+                'type': 'date',  # Widget HTML5
+                'placeholder': 'Select hire date',
+            }
+        )
+
+    def clean_phone_nr(self):
+        phone_nr = self.cleaned_data.get('phone_nr')
+        if not re.match(r'^\+?\d{9,15}$', phone_nr):
+            raise ValidationError('Enter a valid phone number (e.g., +123456789).')
+        return phone_nr
+
     class Meta:
         model = Employee
-        fields = ('employee_group', 'experience', 'phone_nr')
+        fields = ('employee_group', 'experience', 'phone_nr', 'hire_date')
 
 
 class TrainingForm(forms.ModelForm):
@@ -126,12 +154,16 @@ class EmployeeTrainingForm(forms.ModelForm):
         cleaned_data = super().clean()
         employee = cleaned_data.get('employee')
         training = cleaned_data.get('training')
-        if EmployeeTraining.objects.filter(employee=employee, training=training).exists():
+
+        if EmployeeTraining.objects.filter(
+            employee=employee, training=training
+                ).exclude(id=self.instance.id).exists():
             raise ValidationError("This training has already been assigned to this employee.")
+
         return cleaned_data
 
 
-class EmployeeCompetenceLevelForm(forms.ModelForm):
+class EmployeeProficiencyLevelForm(forms.ModelForm):
     class Meta:
         model = EmployeeCompetence
         fields = ['skill_level']

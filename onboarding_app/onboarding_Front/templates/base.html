@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load crispy_forms_tags %}
 
 <html lang="en">
 <head>
@@ -183,6 +184,13 @@
 
                     </a>
                 </li>
+                <li>
+                    <a href="{% url 'all_trainings' %}" class="btn btn-primary d-flex g--200 align-items-center">
+                        <i><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 12l2 2l4 -4" /><path d="M12 22a10 10 0 1 1 0 -20a10 10 0 0 1 0 20z" /></svg></i>
+                        All Trainings
+                    </a>
+                </li>
+
                 {% endif %}
             </ul>
         </nav>
