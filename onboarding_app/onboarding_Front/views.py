@@ -10,6 +10,7 @@ from .forms import RegisterForm, EmployeeForm, TrainingForm, EmployeeTrainingFor
 from onboarding_API.models import Employee, EmployeeGroup, EmployeeCompetence, EmployeeTraining, CompetenceMatrix, Training
 from itertools import groupby
 from operator import attrgetter
+from django.utils.timezone import now
 
 
 class CustomLoginView(LoginView):
@@ -107,18 +108,24 @@ def edit_employee_page(request, employee_id):
         }
 
         if user_form.is_valid() and employee_form.is_valid():
-            user_form.save()
-            updated_employee = employee_form.save()
-            updated_employee.save()
+            user = user_form.save()
+
+            new_employee = employee_form.save(commit=False)
+            new_employee.user = user
+            new_employee.created_by = request.user
+            if not new_employee.hire_date:
+                new_employee.hire_date = now().date()
+            new_employee.save()
 
             messages.success(request, "Employee details updated successfully!")
             return redirect('employee_detail', employee_id=employee.id)
     else:
+
         user_form = UserChangeForm(instance=user)
         user_form.fields['username'].widget.attrs['class'] = 'form-control'
         user_form.fields['email'].widget.attrs['class'] = 'form-control'
 
-        employee_form = EmployeeForm(instance=employee)
+        employee_form = EmployeeForm(instance=employee, initial={'hire_date': now()})
 
         user_form.fields.pop('password', None)
         user_form.fields = {
@@ -131,6 +138,8 @@ def edit_employee_page(request, employee_id):
                 'class': 'form-control',
                 'type': 'date',
                 'placeholder': 'Select hire date',
+                'value': now().date()
+
             }
         )
 

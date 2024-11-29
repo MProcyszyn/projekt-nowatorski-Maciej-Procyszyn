@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from django.forms import DateInput
 from onboarding_API.models import Employee, EmployeeGroup, Training, EmployeeTraining, EmployeeCompetence, CompetenceMatrix, ProficiencyLevel
 from crispy_forms.helper import FormHelper
+from django.utils.timezone import now
 import re
 
 
@@ -70,6 +71,18 @@ class EmployeeForm(forms.ModelForm):
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your phone number'})
     )
 
+    hire_date = forms.DateField(
+        required=True,
+        widget=forms.DateInput(
+            attrs={
+                'class': 'form-control',
+                'type': 'date',
+                'placeholder': 'Select hire date',
+            }
+        ),
+        initial=now().date  # Use the current date as the default value
+    )
+
     def __init__(self, *args, **kwargs):
         super(EmployeeForm, self).__init__(*args, **kwargs)
 
@@ -84,8 +97,10 @@ class EmployeeForm(forms.ModelForm):
         self.fields['hire_date'].widget = DateInput(
             attrs={
                 'class': 'form-control',
-                'type': 'date',  # Widget HTML5
+                'type': 'date',
                 'placeholder': 'Select hire date',
+                'value': now().date()
+
             }
         )
 

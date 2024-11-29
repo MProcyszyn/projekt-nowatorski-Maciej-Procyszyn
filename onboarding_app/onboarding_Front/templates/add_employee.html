@@ -71,6 +71,15 @@
                         </div>
                     {% endif %}
                 </div>
+                <div class="mb-3">
+                    <label for="hire_date" class="form-label">Hire Date:</label>
+                    {{ employee_form.hire_date }}
+                    {% if employee_form.hire_date.errors %}
+                        <div class="text-danger">
+                            {{ employee_form.hire_date.errors|striptags }}
+                        </div>
+                    {% endif %}
+                </div>
             </div>
             <button type="submit" class="btn btn-primary">Register Employee</button>
         </div>
